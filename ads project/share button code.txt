@@ -1,0 +1,52 @@
+Step 1
+The first thing you should do is open your HTML file and paste the code below
+
+<a onclick="Share.facebook('URL','TITLE','IMG_PATH','DESC')"> {share this}</a>
+<a onclick="Share.twitter('URL','TITLE')"> {share this}</a>
+or
+<a href="http://www.facebook.com/sharer/sharer.php?s=100&
+p%5Btitle%5D=TITLE&p%5Bsummary%5D=DESC&p%5Burl%5D=
+URL&p%5Bimages%5D%5B0%5D=IMG_PATH" target="_blank" onclick="return Share.me(this);">{share this}</a>
+<a href="https://twitter.com/intent/tweet?original_referer=
+http%3A%2F%2Ffiddle.jshell.net%2F_display%2F&text=TITLE&url
+=URL" target="_blank" onclick="return Share.me(this)">{share this}</a>
+
+
+
+Step 2
+Now create a js file that contain such information:
+
+Share = {
+facebook: function(purl, ptitle, pimg, text) {
+url = 'http://www.facebook.com/sharer.php?s=100';
+url += '&p[title]=' + encodeURIComponent(ptitle);
+url += '&p[summary]=' + encodeURIComponent(text);
+url += '&p[url]=' + encodeURIComponent(purl);
+url += '&p[images][0]=' + encodeURIComponent(pimg);
+Share.popup(url);
+},
+twitter: function(purl, ptitle) {
+url = 'http://twitter.com/share?';
+url += 'text=' + encodeURIComponent(ptitle);
+url += '&url=' + encodeURIComponent(purl);
+url += '&counturl=' + encodeURIComponent(purl);
+Share.popup(url);
+},
+popup: function(url) {
+window.open(url,'','toolbar=0,status=0,width=626, height=436');
+}
+};
+That is all :) A very simple method to track the statistics of clicking on the share button that is placed directly on the sharing page. This problem was solved with the help of a table in the database and simple ajax:
+
+popup: function(url,soc) {
+window.open(url,'','toolbar=0,status=0,width=626, height=436');
+
+}
+
+This script gets an id from the URL, adds the label to the table and/ or increases the counter by one for a specific social network. It is a simple solution for share buttons. You can easily change the appearance of your buttons via CSS, you can design your own buttons in Photoshop and use them here. You can do almost everything!
+
+Of course, this example is a little bit primitive, but it is a cool point to start creating your own cool share buttons. Give it a go!
+
+
+
+Read more: https://www.webdesign.org/html-and-css/tutorials/how-to-create-a-share-button-for-your-site.22180.html#ixzz5vMwgSWse
